@@ -3,8 +3,23 @@ const { BlobServiceClient } = require("@azure/storage-blob");
 const appInsights = require("applicationinsights");
 
 // Initialize App Insights
-if (process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
-    appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATIONKEY)
+const aiConnectionString = process.env.APPLICATIONINSIGHTS_CONNECTION_STRING;
+const aiInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY;
+if (aiConnectionString) {
+    appInsights.setup()
+        .setConnectionString(aiConnectionString)
+        .setAutoDependencyCorrelation(true)
+        .setAutoCollectRequests(true)
+        .setAutoCollectPerformance(true, true)
+        .setAutoCollectExceptions(true)
+        .setAutoCollectDependencies(true)
+        .setAutoCollectConsole(true)
+        .setUseDiskRetryCaching(true)
+        .setSendLiveMetrics(true)
+        .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
+        .start();
+} else if (aiInstrumentationKey) {
+    appInsights.setup(aiInstrumentationKey)
         .setAutoDependencyCorrelation(true)
         .setAutoCollectRequests(true)
         .setAutoCollectPerformance(true, true)
