@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CW2 File Manager</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .item { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; display: flex; align-items: start; gap: 10px;}
+        .item img { max-width: 150px; max-height: 150px; object-fit: cover; }
+        .item-details { flex-grow: 1; }
+        .form-group { margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="file"] { width: 100%; padding: 5px; }
+        button { cursor: pointer; padding: 5px 10px; }
+        .delete-btn { background: #ff4444; color: white; border: none; }
+        .edit-btn { background: #4444ff; color: white; border: none; }
+        #api-url-config { margin-bottom: 20px; padding: 10px; background: #f0f0f0; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Cloud Asset Management System</h1>
+
+    <div id="api-url-config">
+        <label>API Base URL:</label>
+        <input type="text" id="apiUrl" value="http://localhost:7071/api" placeholder="e.g. https://my-cw2-app.azurewebsites.net/api">
+        <button onclick="loadItems()">Refresh</button>
+    </div>
+
+    <div style="margin-bottom: 30px; border: 1px solid #ddd; padding: 15px;">
+        <h2>Upload New File</h2>
+        <div class="form-group">
+            <label>Description:</label>
+            <input type="text" id="uploadDesc" placeholder="Enter description">
+        </div>
+        <div class="form-group">
+            <label>File:</label>
+            <input type="file" id="uploadFile">
+        </div>
+        <button onclick="uploadItem()">Upload</button>
+    </div>
+
+    <div id="items-list">
+        <!-- Items will be loaded here -->
+        <p>Loading items...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

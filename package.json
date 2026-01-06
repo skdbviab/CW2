@@ -1,0 +1,22 @@
+{
+  "name": "cw2-azure-functions",
+  "version": "1.0.0",
+  "description": "CW2 Azure Functions Backend",
+  "main": "src/functions/*.js",
+  "scripts": {
+    "start": "func start",
+    "test": "echo \"No tests yet...\""
+  },
+  "dependencies": {
+    "@azure/app-configuration": "^1.7.0",
+    "@azure/cosmos": "^4.0.0",
+    "@azure/functions": "^4.0.0",
+    "@azure/storage-blob": "^12.17.0",
+    "applicationinsights": "^2.9.5",
+    "uuid": "^9.0.1",
+    "multiparty": "^4.2.3"
+  },
+  "devDependencies": {
+    "azure-functions-core-tools": "^4.x"
+  }
+}
