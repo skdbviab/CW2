@@ -1,7 +1,16 @@
+const crypto = require("crypto");
+// Polyfill global crypto for dependencies that expect it (like @azure/cosmos -> @azure/core-util)
+if (!global.crypto) {
+    try {
+        global.crypto = crypto;
+    } catch (e) {
+        console.error("Failed to polyfill global.crypto", e);
+    }
+}
+
 const { CosmosClient } = require("@azure/cosmos");
 const { BlobServiceClient } = require("@azure/storage-blob");
 const appInsights = require("applicationinsights");
-const crypto = require("crypto"); // Import crypto module
 
 // Initialize App Insights
 try {
