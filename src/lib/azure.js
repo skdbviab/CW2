@@ -1,6 +1,7 @@
 const { CosmosClient } = require("@azure/cosmos");
 const { BlobServiceClient } = require("@azure/storage-blob");
 const appInsights = require("applicationinsights");
+const crypto = require("crypto"); // Import crypto module
 
 // Initialize App Insights
 try {
