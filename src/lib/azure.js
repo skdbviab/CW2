@@ -3,33 +3,26 @@ const { BlobServiceClient } = require("@azure/storage-blob");
 const appInsights = require("applicationinsights");
 
 // Initialize App Insights
-const aiConnectionString = process.env.APPLICATIONINSIGHTS_CONNECTION_STRING;
-const aiInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY;
-if (aiConnectionString) {
-    appInsights.setup()
-        .setConnectionString(aiConnectionString)
-        .setAutoDependencyCorrelation(true)
-        .setAutoCollectRequests(true)
-        .setAutoCollectPerformance(true, true)
-        .setAutoCollectExceptions(true)
-        .setAutoCollectDependencies(true)
-        .setAutoCollectConsole(true)
-        .setUseDiskRetryCaching(true)
-        .setSendLiveMetrics(true)
-        .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
-        .start();
-} else if (aiInstrumentationKey) {
-    appInsights.setup(aiInstrumentationKey)
-        .setAutoDependencyCorrelation(true)
-        .setAutoCollectRequests(true)
-        .setAutoCollectPerformance(true, true)
-        .setAutoCollectExceptions(true)
-        .setAutoCollectDependencies(true)
-        .setAutoCollectConsole(true)
-        .setUseDiskRetryCaching(true)
-        .setSendLiveMetrics(true)
-        .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
-        .start();
+try {
+    const aiConnectionString = process.env.APPLICATIONINSIGHTS_CONNECTION_STRING;
+    const aiInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY;
+    const connectionString = aiConnectionString || aiInstrumentationKey;
+
+    if (connectionString) {
+        appInsights.setup(connectionString)
+            .setAutoDependencyCorrelation(true)
+            .setAutoCollectRequests(true)
+            .setAutoCollectPerformance(true, true)
+            .setAutoCollectExceptions(true)
+            .setAutoCollectDependencies(true)
+            .setAutoCollectConsole(true)
+            .setUseDiskRetryCaching(true)
+            .setSendLiveMetrics(true)
+            .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
+            .start();
+    }
+} catch (e) {
+    console.error("Failed to initialize Application Insights:", e);
 }
 
 const cosmosClient = new CosmosClient(process.env.COSMOS_CONNECTION_STRING);
